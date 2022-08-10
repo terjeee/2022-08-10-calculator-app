@@ -1,0 +1,38 @@
+.calc__main {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  color: #fff;
+  border: greenyellow 0.1rem solid;
+}
+
+.calc__sum {
+  border-radius: 0.5rem;
+  background-color: hsl(224, 36%, 15%);
+  text-align: end;
+}
+
+.calc__sum p {
+  padding: 2rem;
+}
+
+.calc__buttons {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background-color: hsl(224, 36%, 15%);
+}
+
+.calc__buttons .grid__01 {
+  display: flex;
+}
+
+.calc__buttons .grid__02 {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+}
