@@ -3,17 +3,19 @@ import Button from '../../components/UI/Button';
 import css from './Calculator.module.css';
 
 function Calculator() {
+  let sum = 0;
+
   return (
     <main className={css.calc__main}>
       <div className={css.calc__sum}>
-        <p>149,99 j</p>
+        <p>{sum}</p>
       </div>
       <div className={css.calc__buttons}>
-        <div className={css.grid__01}>
+        <div className={css.grid}>
           <Button>7</Button>
           <Button>8</Button>
           <Button>9</Button>
-          <Button>DEL</Button>
+          <Button color='blue'>DEL</Button>
           <Button>4</Button>
           <Button>5</Button>
           <Button>6</Button>
@@ -26,10 +28,12 @@ function Calculator() {
           <Button>0</Button>
           <Button>/</Button>
           <Button>x</Button>
-        </div>
-        <div className={css.grid__02}>
-          <Button>Reset</Button>
-          <Button>=</Button>
+          <div className={css['grid__item--span02']}>
+            <Button color='blue'>RESET</Button>
+          </div>
+          <div className={css['grid__item--span02']}>
+            <Button color='red'>=</Button>
+          </div>
         </div>
       </div>
     </main>

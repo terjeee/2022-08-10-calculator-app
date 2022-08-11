@@ -1,5 +1,7 @@
+import Calculator from './pages/Calculator/Calculator';
+
 function App() {
-  return;
+  return <Calculator />;
 }
 
 export default App;
