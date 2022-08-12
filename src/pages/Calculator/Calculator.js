@@ -21,7 +21,13 @@ function Calculator() {
 
   const handleGetComma = () => {
     if (!canAddComma) return;
-    if (equation.slice(-1) === ('+' || '-' || 'x' || '/')) return;
+    if (
+      equation.slice(-1) === '+' ||
+      equation.slice(-1) === '-' ||
+      equation.slice(-1) === 'x' ||
+      equation.slice(-1) === '/'
+    )
+      return;
 
     setEquation((state) => state + '.');
     setCanAddComma(false);
@@ -31,9 +37,9 @@ function Calculator() {
     const operator = event.target.innerHTML;
 
     if (!canAddOperator) return;
-    if (equation.slice(-1) !== '.') return;
+    if (equation.slice(-1) === '.') return;
 
-    setEquation((state) => state + `${operator}`);
+    setEquation((state) => state + operator);
     setCanAddComma(true);
     setCanAddOperator(false);
   };
@@ -41,6 +47,8 @@ function Calculator() {
   const handleErase = () => {
     if (equation === '0') return;
     if (equation.length === 1) return setEquation('0');
+
+    // if(equation.slice(-1) ===)
     setEquation((state) => state.slice(0, -1));
   };
 
