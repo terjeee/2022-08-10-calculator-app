@@ -1,12 +1,21 @@
+import { useState } from 'react';
+
 import Button from '../../components/UI/Button';
 
 import css from './Calculator.module.css';
 
 function Calculator() {
-  let sum = 0;
+  const [sum, setSum] = useState(0);
+  // const []
 
   const handleGetValue = (event) => {
-    console.log(event.target.innerText);
+    const keyPressed = event.target.innerText;
+    if (sum === 0) setSum('');
+
+    if (keyPressed === 'DEL') return setSum((state) => state.slice(0, -1));
+    if (keyPressed === 'RESET') return setSum(0);
+
+    setSum((state) => state + event.target.innerText);
   };
 
   return (
