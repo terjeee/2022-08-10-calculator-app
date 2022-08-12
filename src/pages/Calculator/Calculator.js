@@ -26,8 +26,9 @@ function Calculator() {
       equation.slice(-1) === '-' ||
       equation.slice(-1) === 'x' ||
       equation.slice(-1) === '/'
-    )
+    ) {
       return;
+    }
 
     setEquation((state) => state + '.');
     setCanAddComma(false);
@@ -48,7 +49,8 @@ function Calculator() {
     if (equation === '0') return;
     if (equation.length === 1) return setEquation('0');
 
-    // if(equation.slice(-1) ===)
+    // setState på comma og operator basert på hvilken character som har blitt slicet
+
     setEquation((state) => state.slice(0, -1));
   };
 
