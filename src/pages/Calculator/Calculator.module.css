@@ -1,41 +1,35 @@
-/* -- Calculator Layout -- */
-
-.calc__main {
+.main {
   margin: auto;
-
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-
   color: #fff;
 }
 
-.calc__sum {
+.sum {
   border-radius: 0.5rem;
   background-color: hsl(224, 36%, 15%);
   text-align: end;
 }
 
-.calc__sum p {
+.sum p {
   padding: 1.5rem;
 }
 
-.calc__buttons {
+.buttons {
   display: flex;
   flex-direction: column;
-
   padding: 1.25rem;
-
   border-radius: 0.5rem;
   background-color: hsl(224, 36%, 15%);
 }
 
-.calc__buttons .grid {
+.buttons .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.655rem;
 }
 
-.grid__item--span02 {
+.grid__item--span {
   grid-column: auto / span 2;
 }
