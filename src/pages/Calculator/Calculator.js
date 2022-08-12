@@ -7,11 +7,13 @@ import css from './Calculator.module.css';
 function Calculator() {
   const [equation, setEquation] = useState('0');
   const [canAddComma, setCanAddComma] = useState(true);
-  const [canAddOperator, setCanAddOperator] = useState(false);
+  const [canAddOperator, setCanAddOperator] = useState(true);
 
   const handleGetInput = (event) => {
     const keyPressed = event.target.innerHTML;
+
     if (equation === '0' && keyPressed === '0') return;
+
     if (equation === '0') setEquation('');
     setEquation((state) => state + keyPressed);
     setCanAddOperator(true);
@@ -19,6 +21,8 @@ function Calculator() {
 
   const handleGetComma = () => {
     if (!canAddComma) return;
+    if (equation.slice(-1) === ('+' || '-' || 'x' || '/')) return;
+
     setEquation((state) => state + '.');
     setCanAddComma(false);
   };
@@ -27,7 +31,9 @@ function Calculator() {
     const operator = event.target.innerHTML;
 
     if (!canAddOperator) return;
-    setEquation((state) => state + ` ${operator} `);
+    if (equation.slice(-1) !== '.') return;
+
+    setEquation((state) => state + `${operator}`);
     setCanAddComma(true);
     setCanAddOperator(false);
   };
