@@ -5,41 +5,70 @@ import Button from '../../components/UI/Button';
 import css from './Calculator.module.css';
 
 function Calculator() {
-  const [stateSum, setStateSum] = useState(0);
-  // const [stateOperator, setStateOperator] = useState('');
+  const [getFirstNum, setGetFirstNum] = useState(true);
+
+  const defaultSum = '0';
+  const [inputNum, setInputNum] = useState(defaultSum);
+
+  const [firstNum, setFirstNum] = useState(null);
+  const [secondNum, setSecondNum] = useState(null);
+  const [operator, setOperator] = useState(null);
+
+  console.log('inputNum: ', inputNum);
+  console.log('operator: ', operator);
+  console.log('firstNum: ', firstNum);
+  console.log('secondNum: ', secondNum);
 
   const handleGetNumber = (event) => {
-    const keyPressed = Number(event.target.innerHTML);
+    const keyPressed = event.target.innerHTML;
+    if (inputNum === defaultSum && keyPressed === defaultSum) return;
+    if (inputNum === defaultSum) setInputNum('');
+    // if (!inputNum.includes(',') && inputNum.replace(/\s/g, '').length % 3 === 0)
+    //   setInputNum((state) => state + ' ');
+    setInputNum((state) => state + keyPressed);
+  };
 
-    if (stateSum === 0) setStateSum('');
-    setStateSum((state) => state + keyPressed);
+  const handleGetComma = () => {
+    if (inputNum.includes('.')) return;
+    setInputNum((state) => state + '.');
+  };
+
+  const handleErase = () => {
+    if (inputNum === 0) return;
+    if (inputNum.length === 1) return setInputNum(defaultSum);
+    setInputNum((state) => state.slice(0, -1));
   };
 
   const handleGetOperator = (event) => {
     const operatorPressed = event.target.innerHTML;
     console.log(operatorPressed, typeof operatorPressed);
+
+    setOperator(operatorPressed);
   };
 
-  const handleErase = () => {
-    if (stateSum === 0) return;
-    if (stateSum.length === 1) return setStateSum(0);
-
-    setStateSum((state) => state.slice(0, -1));
+  const handleCalculate = () => {
+    console.log('=');
   };
 
-  const handleEraseAll = () => {
-    setStateSum(0);
+  const handleReset = () => {
+    setInputNum(defaultSum);
+    setFirstNum(null);
+    setSecondNum(null);
+    setOperator(null);
   };
 
   return (
-    <main className={css.calc__main}>
-      <div className={css.calc__sum}>
-        <p>
-          {/* {stateOperator} */}
-          {stateSum}
-        </p>
+    <main className={css.main}>
+      <div className={css.sum}>
+        {firstNum && (
+          <p>
+            {operator}
+            {firstNum}
+          </p>
+        )}
+        <p>{inputNum}</p>
       </div>
-      <div className={css.calc__buttons}>
+      <div className={css.buttons}>
         <div className={css.grid}>
           <Button onClick={handleGetNumber} color='grey'>
             7
@@ -74,10 +103,10 @@ function Calculator() {
           <Button onClick={handleGetNumber} color='grey'>
             3
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetOperator} color='grey'>
             -
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetComma} color='grey'>
             .
           </Button>
           <Button onClick={handleGetNumber} color='grey'>
@@ -89,13 +118,13 @@ function Calculator() {
           <Button onClick={handleGetOperator} color='grey'>
             x
           </Button>
-          <div className={css['grid__item--span02']}>
-            <Button onClick={handleEraseAll} color='blue'>
+          <div className={css['grid__item--span']}>
+            <Button onClick={handleReset} color='blue'>
               RESET
             </Button>
           </div>
-          <div className={css['grid__item--span02']}>
-            <Button onClick={handleGetOperator} color='red'>
+          <div className={css['grid__item--span']}>
+            <Button onClick={handleCalculate} color='red'>
               =
             </Button>
           </div>
