@@ -5,45 +5,37 @@ import Button from '../../components/UI/Button';
 import css from './Calculator.module.css';
 
 function Calculator() {
-  const [getFirstNum, setGetFirstNum] = useState(true);
+  const [equation, setEquation] = useState('0');
+  const [canAddComma, setCanAddComma] = useState(true);
+  const [canAddOperator, setCanAddOperator] = useState(false);
 
-  const defaultSum = '0';
-  const [inputNum, setInputNum] = useState(defaultSum);
-
-  const [firstNum, setFirstNum] = useState(null);
-  const [secondNum, setSecondNum] = useState(null);
-  const [operator, setOperator] = useState(null);
-
-  console.log('inputNum: ', inputNum);
-  console.log('operator: ', operator);
-  console.log('firstNum: ', firstNum);
-  console.log('secondNum: ', secondNum);
-
-  const handleGetNumber = (event) => {
+  const handleGetInput = (event) => {
     const keyPressed = event.target.innerHTML;
-    if (inputNum === defaultSum && keyPressed === defaultSum) return;
-    if (inputNum === defaultSum) setInputNum('');
-    // if (!inputNum.includes(',') && inputNum.replace(/\s/g, '').length % 3 === 0)
-    //   setInputNum((state) => state + ' ');
-    setInputNum((state) => state + keyPressed);
+    if (equation === '0' && keyPressed === '0') return;
+    if (equation === '0') setEquation('');
+    setEquation((state) => state + keyPressed);
+    setCanAddOperator(true);
   };
 
   const handleGetComma = () => {
-    if (inputNum.includes('.')) return;
-    setInputNum((state) => state + '.');
-  };
-
-  const handleErase = () => {
-    if (inputNum === 0) return;
-    if (inputNum.length === 1) return setInputNum(defaultSum);
-    setInputNum((state) => state.slice(0, -1));
+    if (!canAddComma) return;
+    setEquation((state) => state + '.');
+    setCanAddComma(false);
   };
 
   const handleGetOperator = (event) => {
-    const operatorPressed = event.target.innerHTML;
-    console.log(operatorPressed, typeof operatorPressed);
+    const operator = event.target.innerHTML;
 
-    setOperator(operatorPressed);
+    if (!canAddOperator) return;
+    setEquation((state) => state + ` ${operator} `);
+    setCanAddComma(true);
+    setCanAddOperator(false);
+  };
+
+  const handleErase = () => {
+    if (equation === '0') return;
+    if (equation.length === 1) return setEquation('0');
+    setEquation((state) => state.slice(0, -1));
   };
 
   const handleCalculate = () => {
@@ -51,56 +43,47 @@ function Calculator() {
   };
 
   const handleReset = () => {
-    setInputNum(defaultSum);
-    setFirstNum(null);
-    setSecondNum(null);
-    setOperator(null);
+    setEquation('0');
   };
 
   return (
     <main className={css.main}>
-      <div className={css.sum}>
-        {firstNum && (
-          <p>
-            {operator}
-            {firstNum}
-          </p>
-        )}
-        <p>{inputNum}</p>
+      <div className={css.equation}>
+        <p>{equation}</p>
       </div>
       <div className={css.buttons}>
         <div className={css.grid}>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             7
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             8
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             9
           </Button>
           <Button onClick={handleErase} color='blue'>
             DEL
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             4
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             5
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             6
           </Button>
           <Button onClick={handleGetOperator} color='grey'>
             +
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             1
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             2
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             3
           </Button>
           <Button onClick={handleGetOperator} color='grey'>
@@ -109,7 +92,7 @@ function Calculator() {
           <Button onClick={handleGetComma} color='grey'>
             .
           </Button>
-          <Button onClick={handleGetNumber} color='grey'>
+          <Button onClick={handleGetInput} color='grey'>
             0
           </Button>
           <Button onClick={handleGetOperator} color='grey'>
