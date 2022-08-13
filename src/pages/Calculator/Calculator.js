@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { evaluate } from 'mathjs';
 
 import Button from '../../components/UI/Button';
 
@@ -57,7 +58,7 @@ function Calculator() {
   const handleCalculate = () => {
     const equationCorrected = equation.replace('x', '*');
     console.log(equationCorrected);
-    console.log(eval(equationCorrected));
+    console.log(evaluate(equationCorrected));
   };
 
   const handleReset = () => {
