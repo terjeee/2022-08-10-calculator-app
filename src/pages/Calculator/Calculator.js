@@ -55,11 +55,15 @@ function Calculator() {
   };
 
   const handleCalculate = () => {
-    console.log('=');
+    const equationCorrected = equation.replace('x', '*');
+    console.log(equationCorrected);
+    console.log(eval(equationCorrected));
   };
 
   const handleReset = () => {
     setEquation('0');
+    setCanAddComma(true);
+    setCanAddOperator(true);
   };
 
   return (
