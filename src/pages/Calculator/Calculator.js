@@ -57,8 +57,10 @@ function Calculator() {
 
   const handleCalculate = () => {
     const equationCorrected = equation.replace('x', '*');
-    console.log(equationCorrected);
-    console.log(evaluate(equationCorrected));
+    const sum = String(evaluate(equationCorrected).toFixed(2));
+    setEquation(sum);
+    setCanAddComma(true);
+    setCanAddOperator(true);
   };
 
   const handleReset = () => {
