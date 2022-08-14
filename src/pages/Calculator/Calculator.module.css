@@ -14,13 +14,14 @@
 }
 
 .equation p {
-  padding: 1.5rem 1.25rem;
+  font-size: 2.75rem;
+  padding: 1.75rem 2.65rem 1.55rem 2.65rem;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-radius: 0.5rem;
   background-color: hsl(224, 36%, 15%);
 }
@@ -28,7 +29,7 @@
 .buttons .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.655rem;
+  gap: 1.25rem;
 }
 
 .grid__item--span {

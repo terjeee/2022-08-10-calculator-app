@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
 
-import Button from '../../components/UI/Button';
+import Button from '../../components/Button';
 
 import css from './Calculator.module.css';
 
@@ -28,6 +28,8 @@ function Calculator() {
       equation.slice(-1) === 'x' ||
       equation.slice(-1) === '/'
     ) {
+      setEquation((state) => state + '0.');
+      setCanAddComma(false);
       return;
     }
 
@@ -39,7 +41,7 @@ function Calculator() {
     const operator = event.target.innerHTML;
 
     if (!canAddOperator) return;
-    if (equation.slice(-1) === '.') return;
+    if (equation.slice(-1) === '.') setEquation((state) => state.slice(0, -1));
 
     setEquation((state) => state + operator);
     setCanAddComma(true);
@@ -57,8 +59,11 @@ function Calculator() {
 
   const handleCalculate = () => {
     const equationCorrected = equation.replace('x', '*');
-    const sum = String(evaluate(equationCorrected).toFixed(2));
-    setEquation(sum);
+    let sum = evaluate(equationCorrected);
+
+    if (!Number.isInteger(sum)) sum = sum.toFixed(2);
+
+    setEquation(String(sum));
     setCanAddComma(true);
     setCanAddOperator(true);
   };
@@ -85,7 +90,7 @@ function Calculator() {
           <Button onClick={handleGetInput} color='grey'>
             9
           </Button>
-          <Button onClick={handleErase} color='blue'>
+          <Button onClick={handleErase} color='blue' text='fontsize--small'>
             DEL
           </Button>
           <Button onClick={handleGetInput} color='grey'>
@@ -125,12 +130,12 @@ function Calculator() {
             x
           </Button>
           <div className={css['grid__item--span']}>
-            <Button onClick={handleReset} color='blue'>
+            <Button onClick={handleReset} color='blue' text='fontsize--small'>
               RESET
             </Button>
           </div>
           <div className={css['grid__item--span']}>
-            <Button onClick={handleCalculate} color='red'>
+            <Button onClick={handleCalculate} color='red' text='fontsize--small'>
               =
             </Button>
           </div>
