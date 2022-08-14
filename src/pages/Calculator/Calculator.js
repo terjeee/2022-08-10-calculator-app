@@ -80,7 +80,7 @@ function Calculator() {
       <div className={css.equation}>
         <p>{equation}</p>
       </div>
-      <div className={css.buttons}>
+      <div className={css.keyboard}>
         <div className={css.grid}>
           <Button onClick={handleGetInput} color='grey'>
             7
