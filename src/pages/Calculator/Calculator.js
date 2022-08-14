@@ -30,6 +30,7 @@ function Calculator() {
     ) {
       setEquation((state) => state + '0.');
       setCanAddComma(false);
+      setCanAddOperator(true);
       return;
     }
 
